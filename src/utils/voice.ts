@@ -83,11 +83,11 @@ export async function addPlaylistToQueue(
 export function validURL(str: string) {
   const pattern = new RegExp(
     "^(https?:\\/\\/)?" + // protocol
-    "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-    "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-    "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-    "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-    "(\\#[-a-z\\d_]*)?$",
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-z\\d_]*)?$",
     "i",
   ); // fragment locator
   return !!pattern.test(str);
@@ -104,8 +104,10 @@ export async function checkIfUserInMusicChannel(
     }
   }
   const voiceStates = cache.guilds.get(message.guildId)?.voiceStates;
-  if (!voiceStates?.has(message.authorId) || player.channel !==
-    voiceStates?.get(message.authorId)?.channelId?.toString()) {
+  if (
+    !voiceStates?.has(message.authorId) || player.channel !==
+      voiceStates?.get(message.authorId)?.channelId?.toString()
+  ) {
     await message.reply(`You need to be in the same voice channel as the bot!`);
     return false;
   }
